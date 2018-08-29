@@ -1,0 +1,22 @@
+ArbitratedEscrow
+
+
+Web3 Calls/Node Server
+    - Get all agreement addresses /api/agreements
+    - Create agreement (provide buyer, seller, arbitrator) /api/agreements
+    - Get agreement information by address (participants, balance) /api/agreements/<agreement>
+    - Confirm as participant /api/agreements/<agreement>/<participant_address>
+    - Set destination as participant /api/agreements/<agreement>/<participant_address>
+    - View funds for address /api/balance/<address>
+    - Deposit money as participant /api/balance/<address>
+
+Testing
+    - Create agreement
+    - Confirm as all three participants
+    - Send money from buyer
+    - Accept as buyer and seller
+    - See that seller receives funds
+    - Create dispute
+    - Send money again
+    - Resolve dispute, see that money is properly disbursed
+
