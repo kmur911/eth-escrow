@@ -36,9 +36,9 @@ var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs s
 ///////////////// Connect to Contract /////////////////
 ///////////////// (use this for all calls after the contract has been deployed) /////////////////
 
-contractAddress = "0x298cfC8aDfe85cc634Bc29a9bC53326912355f73"
-var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
-let params = {};
+// contractAddress = "0x298cfC8aDfe85cc634Bc29a9bC53326912355f73"
+// var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
+// let params = {};
 
 ///////////////// Monitor Event /////////////////
 
@@ -51,11 +51,6 @@ let params = {};
 //     console.log(err);
 //     console.log(res);
 // });
-
-ArbitratedEscrow.methods.state_string().call(function(err, res) {
-        console.log(err);
-        console.log(res);
-    });
 
 ///////////////// Transact with Contract Function (Confirm) /////////////////
 
