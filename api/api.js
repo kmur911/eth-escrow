@@ -2,7 +2,9 @@ let fs = require("fs");
 let path = require("path");
 let Web3 = require('web3'); // https://www.npmjs.com/package/web3
 
-let web3 = new Web3(Web3.givenProvider || "ws://localhost:7545");
+let url = "ws://localhost:7545"
+
+let web3 = new Web3(Web3.givenProvider || url);
 
 let source = fs.readFileSync(path.join(__dirname, "ArbitratedEscrow.json"));
 let contractInfo = JSON.parse(source)["contracts"]['contracts/ArbitratedEscrow.sol:ArbitratedEscrow'];

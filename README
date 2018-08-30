@@ -1,13 +1,25 @@
 ArbitratedEscrow
 
+To test this repo follow these steps:
+    - run "make compile"
+    - point "url" in api.js to the appropriate net
+    - set "owner_address" to the address you want to use to deploy a contract
+    - set "buyer", "seller", and "arbitrator" to the addresses you want assigned as such in the newly created contract
+    - uncomment the section titled "Create and Deploy Contract" and then run "make run"
+    - Copy the printed address into the "contractAddress" variable, ctrl c to continue
+    - For all subsequent calls comment out "Create and Deploy Contract" and uncomment "Connect to Contract"
+    - Then you can uncomment whichever other sections you want in addition to "Connect to Contract", and use "make run" to execute
 
-Web3 Calls/Node Server
-    - Create agreement (provide buyer, seller, arbitrator) /api/agreements
-    - Get agreement information by address (participants, balance) /api/agreements/<agreement>
-    - Confirm as participant /api/agreements/<agreement>/<participant_address>
-    - Set destination as participant /api/agreements/<agreement>/<participant_address>
-    - View funds for address /api/balance/<address>
-    - Deposit money as participant /api/balance/<address>
+    ### IMPORTANT ###
+    Anytime you make changes to the contract solidity file, you must run "make compile" and redeploy the contract to the network using the steps listed above.
+
+Web3 Calls
+    - Create agreement (provide buyer, seller, arbitrator)
+    - Get agreement information by address (participants, balance)
+    - Confirm as participant
+    - Set destination as participant
+    - View funds for address
+    - Deposit money as participant
 
 Testing
     - Create agreement
@@ -19,5 +31,3 @@ Testing
     - Send money again
     - Resolve dispute, see that money is properly disbursed
 
-Outstanding problems:
-    - payBalance is sending funds to 0000 rather than the proper recipient
