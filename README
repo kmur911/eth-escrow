@@ -2,7 +2,6 @@ ArbitratedEscrow
 
 
 Web3 Calls/Node Server
-    - Get all agreement addresses /api/agreements
     - Create agreement (provide buyer, seller, arbitrator) /api/agreements
     - Get agreement information by address (participants, balance) /api/agreements/<agreement>
     - Confirm as participant /api/agreements/<agreement>/<participant_address>
@@ -20,3 +19,5 @@ Testing
     - Send money again
     - Resolve dispute, see that money is properly disbursed
 
+Outstanding problems:
+    - payBalance is sending funds to 0000 rather than the proper recipient
