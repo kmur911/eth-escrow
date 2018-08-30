@@ -36,9 +36,9 @@ var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs s
 ///////////////// Connect to Contract /////////////////
 ///////////////// (use this for all calls after the contract has been deployed) /////////////////
 
-// contractAddress = "0x298cfC8aDfe85cc634Bc29a9bC53326912355f73"
-// var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
-// let params = {};
+contractAddress = "0x298cfC8aDfe85cc634Bc29a9bC53326912355f73"
+var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
+let params = {};
 
 ///////////////// Monitor Event /////////////////
 
@@ -52,18 +52,15 @@ var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs s
 //     console.log(res);
 // });
 
-///////////////// Transact with Contract Function /////////////////
+ArbitratedEscrow.methods.state_string().call(function(err, res) {
+        console.log(err);
+        console.log(res);
+    });
+
+///////////////// Transact with Contract Function (Confirm) /////////////////
 
 // params = {from: buyer};
 // ArbitratedEscrow.methods.confirm().send(params, function(err, res) {
-//     console.log(err);
-//     console.log(res);
-// });
-
-///////////////// Transact with Contract Function with Parameter /////////////////
-
-// params = {from: arbitrator};
-// ArbitratedEscrow.methods.complete(seller).send(params, function(err, res) {
 //     console.log(err);
 //     console.log(res);
 // });
@@ -72,6 +69,14 @@ var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs s
 
 // params = {from: buyer, value: web3.utils.toWei("5")};
 // ArbitratedEscrow.methods.deposit().send(params, function(err, res) {
+//     console.log(err);
+//     console.log(res);
+// });
+
+///////////////// Transact with Contract Function with Parameter (Complete) /////////////////
+
+// params = {from: buyer};
+// ArbitratedEscrow.methods.complete(seller).send(params, function(err, res) {
 //     console.log(err);
 //     console.log(res);
 // });
