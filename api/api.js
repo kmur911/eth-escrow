@@ -19,13 +19,14 @@ const ownerAddress = "0x39d60936C62190570dE5776C7C283baF366417bE"
 var buyer = '0x39d60936C62190570dE5776C7C283baF366417bE';
 var seller = '0x6e85C3548AF3272257E42BB8dF5A3C4Aa9c90eB4';
 var arbitrator = "0x42B56B3A8dAB0bD0725879E84261A4Fad4e86975";
+var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs service.`;
 
 ///////////////// Create and Deploy Contract (do this first) /////////////////
 
 // var ArbitratedEscrow = new web3.eth.Contract(abi);
 
 // console.log("Deploying the contract");
-// ArbitratedEscrow.deploy({data: code, arguments: [buyer, seller, arbitrator]})
+// ArbitratedEscrow.deploy({data: code, arguments: [buyer, seller, arbitrator, contract_text]})
 //     .send({from: ownerAddress, gas: 4000000, gasPrice: '0'})
 //     .then((instance) => {
 //         var contractAddress = instance.options.address;

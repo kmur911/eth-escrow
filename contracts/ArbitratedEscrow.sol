@@ -10,6 +10,7 @@ contract ArbitratedEscrow {
     address public buyer;
     address public seller;
     address public arbitrator;
+    string public contract_text;
     mapping (address => Party) public parties;
     uint private start;
 
@@ -19,11 +20,12 @@ contract ArbitratedEscrow {
     event Completed(address from, address to);
     event AttemptedPayment(uint256 value, address whom);
 
-    constructor(address buyer_address, address seller_address, address arbitrator_address) public {
+    constructor(address buyer_address, address seller_address, address arbitrator_address, string initial_contract_text) public {
         // this is the constructor function that runs ONCE upon initialization
         buyer = buyer_address;
         seller = seller_address;
         arbitrator = arbitrator_address;
+        contract_text = initial_contract_text;
         start = now; //now is an alias for block.timestamp, not really "now"
     }
 
