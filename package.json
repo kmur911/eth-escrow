@@ -1,0 +1,21 @@
+{
+  "name": "agreement_api",
+  "version": "1.0.0",
+  "description": "ArbitratedEscrow",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "web3": "^1.0.0-beta.35"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.cbhq.net:ketanmurthy/hackathon-marketplace.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

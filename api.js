@@ -1,27 +1,41 @@
-let fs = require("fs");
-let path = require("path");
-let Web3 = require('web3'); // https://www.npmjs.com/package/web3
+var express = require("express");
+var bodyParser = require("body-parser");
+var routes = require("./routes/routes.js");
+var app = express();
 
-let url = "ws://localhost:7545"
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-let web3 = new Web3(Web3.givenProvider || url);
+routes(app);
 
-let source = fs.readFileSync(path.join(__dirname, "ArbitratedEscrow.json"));
-let contractInfo = JSON.parse(source)["contracts"]['contracts/ArbitratedEscrow.sol:ArbitratedEscrow'];
+var server = app.listen(3000, function () {
+    console.log("app running on port.", server.address().port);
+});
 
-// ABI description as JSON structure
-let abi = JSON.parse(contractInfo.abi);
-// Smart contract EVM bytecode as hex
-let code = '0x' + contractInfo.bin;
+// let fs = require("fs");
+// let path = require("path");
+// let Web3 = require('web3'); // https://www.npmjs.com/package/web3
 
-const ownerAddress = "0x39d60936C62190570dE5776C7C283baF366417bE"
+// let url = "ws://localhost:7545"
 
-var buyer = '0x39d60936C62190570dE5776C7C283baF366417bE';
-var seller = '0x6e85C3548AF3272257E42BB8dF5A3C4Aa9c90eB4';
-var arbitrator = "0x42B56B3A8dAB0bD0725879E84261A4Fad4e86975";
-var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs service.`;
+// let web3 = new Web3(Web3.givenProvider || url);
 
-///////////////// Create and Deploy Contract (do this first) /////////////////
+// let source = fs.readFileSync(path.join(__dirname, "ArbitratedEscrow.json"));
+// let contractInfo = JSON.parse(source)["contracts"]['contracts/ArbitratedEscrow.sol:ArbitratedEscrow'];
+
+// // ABI description as JSON structure
+// let abi = JSON.parse(contractInfo.abi);
+// // Smart contract EVM bytecode as hex
+// let code = '0x' + contractInfo.bin;
+
+// const ownerAddress = "0x39d60936C62190570dE5776C7C283baF366417bE"
+
+// var buyer = '0x39d60936C62190570dE5776C7C283baF366417bE';
+// var seller = '0x6e85C3548AF3272257E42BB8dF5A3C4Aa9c90eB4';
+// var arbitrator = "0x42B56B3A8dAB0bD0725879E84261A4Fad4e86975";
+// var contract_text = `${buyer} agrees to pay ${seller} after ${seller} performs service.`;
+
+// ///////////////// Create and Deploy Contract (do this first) /////////////////
 
 // var ArbitratedEscrow = new web3.eth.Contract(abi);
 
