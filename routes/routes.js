@@ -49,6 +49,7 @@ var appRouter = function (app) {
   });
 
   app.post("/confirm-agreement", function (req, res) {
+    console.log("Confirming agreement");
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from]};
     ArbitratedEscrow.methods.confirm().send(params, function(err, resp) {
@@ -60,6 +61,7 @@ var appRouter = function (app) {
   });
 
   app.post("/deposit-money", function (req, res) {
+    console.log("Deposit money");
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from], value: web3.utils.toWei("5")};
     ArbitratedEscrow.methods.deposit().send(params, function(err, resp) {
@@ -71,6 +73,7 @@ var appRouter = function (app) {
   });
 
   app.post("/complete-agreement", function (req, res) {
+    console.log("Complete agreement");
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from]};
     ArbitratedEscrow.methods.complete(address_map[req.body.destination]).send(params, function(err, resp) {
@@ -83,6 +86,7 @@ var appRouter = function (app) {
   });
 
  app.get("/agreement-state", function (req, res) {
+    console.log("Get agreement state");
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     ArbitratedEscrow.methods.state_string().call(function(err, resp) {
         var data = ({
