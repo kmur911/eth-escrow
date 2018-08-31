@@ -2,6 +2,17 @@ var fs = require("fs");
 var path = require("path");
 var Web3 = require('web3'); // https://www.npmjs.com/package/web3
 
+var url = "ws://localhost:7545";
+var web3 = new Web3(Web3.givenProvider || url);
+
+var source = fs.readFileSync(path.join(__dirname, "ArbitratedEscrow.json"));
+var contractInfo = JSON.parse(source)["contracts"]['contracts/ArbitratedEscrow.sol:ArbitratedEscrow'];
+
+// ABI description as JSON structure
+var abi = JSON.parse(contractInfo.abi);
+// Smart contract EVM bytecode as hex
+var code = '0x' + contractInfo.bin;
+
 const ownerAddress = "0x39d60936C62190570dE5776C7C283baF366417bE"
     
 var buyer = '0x39d60936C62190570dE5776C7C283baF366417bE';
@@ -19,18 +30,6 @@ var contractAddress = "0x298cfC8aDfe85cc634Bc29a9bC53326912355f73"
 var appRouter = function (app) {
 
   app.post("/create-agreement", function (req, res) {
-    var url = "ws://localhost:7545"
-
-    var web3 = new Web3(Web3.givenProvider || url);
-    
-    var source = fs.readFileSync(path.join(__dirname, "ArbitratedEscrow.json"));
-    console.log(JSON.parse(source)["contracts"])
-    var contractInfo = JSON.parse(source)["contracts"]['contracts/ArbitratedEscrow.sol:ArbitratedEscrow'];
-    
-    // ABI description as JSON structure
-    var abi = JSON.parse(contractInfo.abi);
-    // Smart contract EVM bytecode as hex
-    var code = '0x' + contractInfo.bin;
     
     ///////////////// Create and Deploy Contract (do this first) /////////////////
     
@@ -52,7 +51,7 @@ var appRouter = function (app) {
   app.post("/confirm-agreement", function (req, res) {
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from]};
-    ArbitratedEscrow.methods.confirm().send(params, function(err, res) {
+    ArbitratedEscrow.methods.confirm().send(params, function(err, resp) {
         var data = ({
             "result": "success"
           });
@@ -63,7 +62,7 @@ var appRouter = function (app) {
   app.post("/deposit-money", function (req, res) {
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from], value: web3.utils.toWei("5")};
-    ArbitratedEscrow.methods.deposit().send(params, function(err, res) {
+    ArbitratedEscrow.methods.deposit().send(params, function(err, resp) {
         var data = ({
             "result": "success"
           });
@@ -74,7 +73,7 @@ var appRouter = function (app) {
   app.post("/complete-agreement", function (req, res) {
     var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
     params = {from: address_map[req.body.from]};
-    ArbitratedEscrow.methods.complete(req.body.destination).send(params, function(err, res) {
+    ArbitratedEscrow.methods.complete(address_map[req.body.destination]).send(params, function(err, resp) {
         var data = ({
             "result": "success"
           });
@@ -84,9 +83,10 @@ var appRouter = function (app) {
   });
 
  app.get("/agreement-state", function (req, res) {
-    ArbitratedEscrow.methods.state_string().call(function(err, res) {
+    var ArbitratedEscrow = new web3.eth.Contract(abi, contractAddress);
+    ArbitratedEscrow.methods.state_string().call(function(err, resp) {
         var data = ({
-            "state": res
+            "state": resp
         });
         res.status(200).send(data);
     });
